@@ -1,22 +1,18 @@
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 import joblib
 
-def predict_on_new(data):
-    model = joblib.load("fraud_model.joblib")
-    preds = model.predict(data)
+print("🔄 Loading dataset...")
+df = pd.read_csv("transactions.csv")
 
-    # Add ML prediction
-    data["ml_prediction"] = preds
+X = df[['amount','frequency','location_score','hour']]
+y = df['fraud_flag']
 
-    # RULE-BASED FRAUD LOGIC (Hybrid System)
-    data["rule_flag"] = data.apply(lambda row: 1 if (row["amount"] > 20000 and row["location_score"] < 0.3) else 0, axis=1)
+print("🤖 Training model...")
+model = RandomForestClassifier(n_estimators=200, random_state=7)
+model.fit(X, y)
 
-    # Final fraud flag = ML or Rule
-    data["fraud_prediction"] = data.apply(lambda row: 1 if (row["ml_prediction"] == 1 or row["rule_flag"] == 1) else 0, axis=1)
+print("💾 Saving trained model...")
+joblib.dump(model, "fraud_model.joblib")
 
-    data.to_csv("predictions.csv", index=False)
-    print("✅ Fraud detection completed. Check predictions.csv file.")
-
-if __name__ == "__main__":
-    df = pd.read_csv("new_transactions.csv")
-    predict_on_new(df)
+print("✅ Model retrained successfully! Now GitHub workflow will use this model for detection.")
