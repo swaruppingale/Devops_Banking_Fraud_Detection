@@ -28,4 +28,5 @@ jobs:
 
       - name: Run Fraud Detector Script
         run: |
-          python fraud_detector.py transactions.csv
+          python fraud_detector.py new_transactions.csv
+
