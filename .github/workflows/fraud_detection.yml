@@ -2,7 +2,7 @@ name: Fraud Detection Automation
 
 on:
   schedule:
-    - cron: "*/2 * * * *"  # Runs every hour
+    - cron: "*/2 * * * *"    # Runs every 2 minutes
   workflow_dispatch:
   push:
     paths:
