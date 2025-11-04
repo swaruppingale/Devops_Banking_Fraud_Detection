@@ -1,0 +1,1 @@
+This project detects suspicious transactions using a Machine Learning model and runs automatically using GitHub Actions (CI/CD).
