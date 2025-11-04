@@ -5,3 +5,4 @@ amount,frequency,location_score,hour
 12000,5,9,10
 95000,30,0.1,2
 52000,5,0.12,1
+65000,4,0.18,1
